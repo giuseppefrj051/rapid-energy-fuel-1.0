@@ -34,7 +34,7 @@ app.all('*', (req, res) => {res.status(404).send('<h1>404! Wrong Route, Sorry </
 
 //TIMING
 const checkHour = 19;
-const checkMinit = 24;
+const checkMinit = 27;
 const intervalTime = 10000;
 var date;
 var isoDateTime;
