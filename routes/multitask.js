@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const DBschema = require('../DBschema/DBschema');
+const Dbschema = require('../DBschema/DBschema');
 var date;
 var isoDateTime;
 function localdate(){
@@ -13,7 +13,7 @@ function localdate(){
 //get all  
 router.get('/', (req, resp) => {
 
-  DBschema.find({}).then((res) => {
+  Dbschema.find({}).then((res) => {
     resp.send(res);
   }).catch((err) => {
     //catch error
@@ -21,6 +21,53 @@ router.get('/', (req, resp) => {
 
 }); 
 
+//update from our form  
+router.post('/update', async (req, res) => {
+
+try{
+const id = req.body.id;
+const location = req.body.location;
+
+
+//inserting data into DB
+
+try{
+  await Dbschema.updateOne({_id: id}, {$set:{"Asset.location": location}})
+  console.log(`New Location inserted (${location})`);
+} catch(err){
+  console.log(`Db error at ${id} at updating route`);
+}
+
+
+
+
+//res.end();
+res.status(200).send('OK');
+}
+catch(error) {
+  console.error('Error handling POST request:', error);
+  res.status(500).send('Internal Server Error');
+}
+
+}); 
+
+
+//update from our form  
+router.post('/appAndroid', async (req, res) => {
+
+  try{
+  console.log(req.body);
+  //res.end();
+  res.status(200).send('OK');
+  }
+  catch(error) {
+    console.error('Error handling POST request:', error);
+    res.status(500).send('Internal Server Error');
+  }
+  
+  }); 
+
+  
 
 //get one
 router.get('/:id', getSensors, (req, res) => {
@@ -63,7 +110,7 @@ router.post('/create', async (req, res) => {
   
    
   
-  const newAsset = new DBschema({
+  const newAsset = new Dbschema({
         
         Asset: {
             name: namePosted,
