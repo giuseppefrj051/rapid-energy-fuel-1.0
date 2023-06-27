@@ -33,11 +33,7 @@ app.use(express.static('landing'));
 app.all('*', (req, res) => {res.status(404).send('<h1>404! Wrong Route, Sorry </h1>');}); 
 
 //TIMING
-<<<<<<< HEAD
 const checkHour = 19;
-=======
-const checkHour = 09;
->>>>>>> 00ffc0459c73e92d95a4d7614b71314a8d0f2fa2
 const checkMinit = 20;
 const intervalTime = 10000;
 var date;
